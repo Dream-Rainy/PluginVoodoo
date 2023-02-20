@@ -4,27 +4,30 @@ import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.getGroupOrNull
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
-import net.mamoe.mirai.message.data.PlainText
-import net.mamoe.mirai.contact.User
+import net.mamoe.mirai.contact.Contact.Companion.uploadImage
 import net.mamoe.mirai.message.data.At
-import org.AlerHughes.GetInfoByTarot
+import net.mamoe.mirai.message.data.Image
+import net.mamoe.mirai.message.data.PlainText
 import org.AlerHughes.GetRandomTarot
-import org.AlerHughes.JudgeSendTarotImg
+import org.AlerHughes.GetInfoByTarot
 import org.AlerHughes.Model.Tarot
 import org.AlerHughes.PluginVoodoo
+import java.time.LocalDate
+import kotlin.random.Random
 
 
 object TarotCommand : SimpleCommand(
-    PluginVoodoo, "vdTarot",
+    PluginVoodoo, "vdTarot","塔罗牌","tarot",
     description = "塔罗牌占卜"
 ){
     @Handler
     suspend fun CommandSender.handle() {
-        val tarot: Tarot = GetRandomTarot()
-        val info: String = GetInfoByTarot(tarot)
+        val localDate = LocalDate.now()
+        val tarot: Tarot = GetRandomTarot(user!!.id)
+        val randomNum = Random(user!!.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt() % 2
+        val info: String = GetInfoByTarot(tarot, randomNum)
 
         sendMessage(At(user!!) + PlainText("\n" + info))
-        if (JudgeSendTarotImg(tarot))
-            getGroupOrNull()?.sendImage(PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl))
+        getGroupOrNull()?.sendImage((PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl)))
     }
 }

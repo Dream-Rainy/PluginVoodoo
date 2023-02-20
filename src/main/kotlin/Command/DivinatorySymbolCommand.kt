@@ -16,7 +16,7 @@ object DivinatorySymbolCommand : SimpleCommand(
 ){
     @Handler
     suspend fun CommandSender.handle() {
-        val divinatorySymbol: DivinatorySymbol = GetRandomDivinatorySymbol()
+        val divinatorySymbol: DivinatorySymbol = GetRandomDivinatorySymbol(user!!.id)
         val info: String = GetInfoByDivinatorySymbol(divinatorySymbol)
 
         sendMessage(At(user!!) + PlainText("\n" + info))

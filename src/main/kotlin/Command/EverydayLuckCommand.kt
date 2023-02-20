@@ -9,13 +9,13 @@ import java.time.LocalDate
 import kotlin.random.Random
 
 object EverydayLuckCommand : SimpleCommand(
-    PluginVoodoo, "vdLuck",
+    PluginVoodoo, "vdLuck","jrrp","今日人品",
     description = "今日运势"
 ){
     @Handler
     suspend fun CommandSender.handle() {
         val localDate = LocalDate.now()
         val luck = Math.abs(Random(user!!.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt()) % 100
-        sendMessage(At(user!!) + PlainText("的今日运势为:" + luck))
+        sendMessage(At(user!!) + PlainText("今天的欧气值为:" + luck))
     }
 }

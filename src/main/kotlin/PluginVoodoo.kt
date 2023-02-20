@@ -12,6 +12,7 @@ import org.AlerHughes.Model.Tarot
 import net.mamoe.mirai.console.command.getGroupOrNull
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
 import net.mamoe.mirai.message.data.At
+import net.mamoe.mirai.message.data.Image
 import net.mamoe.mirai.message.data.Message
 import org.AlerHughes.Model.DivinatorySymbol
 import java.time.LocalDate
@@ -43,15 +44,15 @@ object PluginVoodoo : KotlinPlugin(
         pluginVoodooEventChannel.subscribeGroupMessages (priority = EventPriority.NORMAL)
         {
             "塔罗牌" {
-                val tarot: Tarot = GetRandomTarot()
-                val info: String = GetInfoByTarot(tarot)
-                subject.sendMessage(At(sender) + PlainText("\n" + info))
-                if (JudgeSendTarotImg(tarot))
-                    subject.sendImage(PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl))
+                val tarot: Tarot = GetRandomTarot(sender.id)
+                val localDate = LocalDate.now()
+                val randomNum = Random(sender.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt() % 2
+                val info: String = GetInfoByTarot(tarot,randomNum)
+                subject.sendMessage(At(sender) + PlainText("\n" + info) + Image(tarot.info.imgUrl))
             }
 
             "求签" {
-                val divinatorySymbol: DivinatorySymbol = GetRandomDivinatorySymbol()
+                val divinatorySymbol: DivinatorySymbol = GetRandomDivinatorySymbol(sender.id)
                 val info: String = GetInfoByDivinatorySymbol(divinatorySymbol)
                 subject.sendMessage(At(sender) + PlainText("\n" + info))
             }
