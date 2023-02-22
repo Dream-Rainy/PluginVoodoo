@@ -1,17 +1,15 @@
-package org.AlerHughes.Command
+package org.alerHughes.command
 
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.getGroupOrNull
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
-import net.mamoe.mirai.contact.Contact.Companion.uploadImage
 import net.mamoe.mirai.message.data.At
-import net.mamoe.mirai.message.data.Image
 import net.mamoe.mirai.message.data.PlainText
-import org.AlerHughes.GetRandomTarot
-import org.AlerHughes.GetInfoByTarot
-import org.AlerHughes.Model.Tarot
-import org.AlerHughes.PluginVoodoo
+import org.alerHughes.controller.GetRandomTarot
+import org.alerHughes.controller.GetInfoByTarot
+import org.alerHughes.model.Tarot
+import org.alerHughes.PluginVoodoo
 import java.time.LocalDate
 import kotlin.random.Random
 

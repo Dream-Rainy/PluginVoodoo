@@ -1,4 +1,4 @@
-package org.AlerHughes.Model
+package org.alerHughes.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
