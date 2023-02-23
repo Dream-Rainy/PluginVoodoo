@@ -8,7 +8,7 @@
 
 2.将插件添加到plugins目录下
 
-3.解压资源文件[PluginVoodooRes.zip](https://github.com/AlerHugu3s/PluginVoodoo/releases/download/v1.5.0/PluginVoodooRes.zip)使得PluginVoodoo文件夹位于 你的根目录/data文件夹下
+3.解压资源文件[PluginVoodooRes.zip](https://github.com/Dream-Rainy/PluginVoodoo/releases/download/v1.6.1/PluginVoodooRes.zip)使得PluginVoodoo文件夹位于 你的根目录/data文件夹下
 
 # 必要依赖
 
