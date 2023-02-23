@@ -9,11 +9,14 @@ import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
 import net.mamoe.mirai.event.EventPriority
 import net.mamoe.mirai.event.subscribeGroupMessages
-import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.utils.info
-import org.alerHughes.command.*
+import net.mamoe.mirai.console.plugin.PluginFileExtensions
+import net.mamoe.mirai.contact.Contact
+import net.mamoe.mirai.message.data.*
+import net.mamoe.mirai.message.data.Image.Key
 import org.alerHughes.model.Tarot
-import net.mamoe.mirai.message.data.At
+import net.mamoe.mirai.message.data.Image.Key.isUploaded
+import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import org.alerHughes.command.DivinatorySymbolCommand
 import org.alerHughes.command.EverydayLuckCommand
 import org.alerHughes.command.TarotCommand
@@ -52,8 +55,9 @@ object PluginVoodoo : KotlinPlugin(
                 val localDate = LocalDate.now()
                 val randomNum = Random(sender.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt() % 2
                 val info: String = GetInfoByTarot(tarot,randomNum)
-                subject.sendMessage(At(sender) + PlainText("\n" + info))
-                subject.sendImage(PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl))
+                val imgFile = resolveDataFile(tarot.info.imgUrl).uploadAsImage(subject)
+                subject.sendMessage(At(sender) + PlainText("\n" + info) + imgFile)
+                //subject.sendImage(PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl))
             }
 
             "求签" {

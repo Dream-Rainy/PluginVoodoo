@@ -6,6 +6,7 @@ import net.mamoe.mirai.console.command.getGroupOrNull
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
 import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.PlainText
+import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import org.alerHughes.controller.GetRandomTarot
 import org.alerHughes.controller.GetInfoByTarot
 import org.alerHughes.model.Tarot
@@ -25,7 +26,9 @@ object TarotCommand : SimpleCommand(
         val randomNum = Random(user!!.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt() % 2
         val info: String = GetInfoByTarot(tarot, randomNum)
 
-        sendMessage(At(user!!) + PlainText("\n" + info))
-        getGroupOrNull()?.sendImage((PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl)))
+        val imgFile = PluginVoodoo.resolveDataFile(tarot.info.imgUrl).uploadAsImage(user!!)
+        sendMessage(At(user!!) + PlainText("\n" + info) + imgFile)
+        //sendMessage(At(user!!) + PlainText("\n" + info))
+        //getGroupOrNull()?.sendImage((PluginVoodoo.dataFolder.resolve(tarot.info.imgUrl)))
     }
 }
