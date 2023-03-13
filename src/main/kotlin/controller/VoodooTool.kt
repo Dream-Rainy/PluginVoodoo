@@ -10,7 +10,7 @@ typealias tarotCountCache = MutableMap<Long,Tarot>
 
 var tarotsCache: tarotTable =  mapOf()
 var tarotCache: tarotCountCache = mutableMapOf()
-var datetemp: Int = 1
+var tarotDatetemp: Int = 1
 
 fun InitTarot()
 {
@@ -22,11 +22,11 @@ fun GetRandomTarot(userid: Long) : Tarot
     val localDate: Int = LocalDate.now().dayOfMonth
     //println(localDate)
     //println(datetemp)
-    if (!tarotCache.containsKey(userid) || localDate != datetemp) {
+    if (!tarotCache.containsKey(userid) || localDate != tarotDatetemp) {
         tarotCache[userid] = tarotsCache.values.random();
         //println("change the tarot result ok")
         //println(tarotCache[userid])
-        datetemp = localDate;
+        tarotDatetemp = localDate;
     };
     return tarotCache[userid]!!
 }

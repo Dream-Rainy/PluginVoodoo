@@ -10,6 +10,7 @@ typealias divinatorySymbolTableCount = MutableMap<Long,DivinatorySymbol>
 
 var divinatorySymbolsCache: divinatorySymbolTable =  mapOf()
 var divinatorySymbolTableCache: divinatorySymbolTableCount = mutableMapOf()
+var divinatoryDatetemp: Int = 1
 
 
 fun InitDivinatorySymbol()
@@ -20,9 +21,9 @@ fun InitDivinatorySymbol()
 fun GetRandomDivinatorySymbol(userid: Long) : DivinatorySymbol
 {
     val localDate = LocalDate.now().dayOfMonth
-    if (!divinatorySymbolTableCache.containsKey(userid) || localDate != datetemp) {
+    if (!divinatorySymbolTableCache.containsKey(userid) || localDate != divinatoryDatetemp) {
         divinatorySymbolTableCache[userid] = divinatorySymbolsCache.values.random();
-        datetemp = localDate;
+        divinatoryDatetemp = localDate;
     };
     return divinatorySymbolTableCache[userid]!!
 }
